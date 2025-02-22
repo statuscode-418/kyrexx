@@ -35,22 +35,36 @@ export default function Page() {
     return <div className="min-h-screen bg-gray-950 p-4 text-white">Error: {error.message}</div>
   }
 
-  const now = BigInt(Date.now()) 
+  const now = Math.floor(Date.now() / 1000)  // Current time in seconds
 
-  const upcomingAppeals = (appeals ?? []).filter(a => a.startTime > now)
-  const ongoingAppeals = (appeals ?? []).filter(a => a.startTime <= now && a.endTime > now)
-  const pastAppeals = (appeals ?? []).filter(a => a.endTime <= now)
+  const upcomingAppeals = (appeals ?? []).filter(a => 
+    parseInt(a.startTime) > now
+  )
+  
+  const ongoingAppeals = (appeals ?? []).filter(a => 
+    parseInt(a.startTime) <= now && parseInt(a.endTime) > now
+  )
+  
+  const pastAppeals = (appeals ?? []).filter(a => 
+    parseInt(a.endTime) <= now
+  )
 
-  const formatDate = (timestamp: bigint) => {
-    return new Date(Number(timestamp)).toLocaleDateString('en-US', {
+  const formatDate = (timestamp: string) => {
+    // Convert UNIX timestamp (seconds) to milliseconds for Date
+    const date = new Date(parseInt(timestamp) * 1000)
+    return date.toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
     })
   }
 
-  const getDuration = (start: bigint, end: bigint) => {
-    const days = Number(end - start) / (1000 * 60 * 60 * 24)
+  const getDuration = (start: string, end: string) => {
+    const startSeconds = parseInt(start)
+    const endSeconds = parseInt(end)
+    const days = (endSeconds - startSeconds) / (60 * 60 * 24)
     return `${Math.ceil(days)} days`
   }
 

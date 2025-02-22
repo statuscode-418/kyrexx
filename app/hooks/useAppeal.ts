@@ -10,8 +10,8 @@ export type Appeal = {
   id: bigint;
   appealerId: string;
   uri: string;
-  startTime: bigint;
-  endTime: bigint;
+  startTime: string;  // Changed to string
+  endTime: string;    // Changed to string
   forScore: bigint;
   againstScore: bigint;
   executed: boolean;
@@ -22,10 +22,12 @@ type AppealResponse = {
     items: {
       id: string;
       appealerId: string;
+      uri: string;
       startTime: string;
       endTime: string;
       forScore: string;
       againstScore: string;
+      executed: boolean;
     }[];
   };
 };
@@ -64,12 +66,12 @@ export const useAppeals = () => {
         return response.appealss.items.map((appeal) => ({
           id: BigInt(appeal.id || "0"),
           appealerId: appeal.appealerId || "",
-          uri: "", // Default value since it's not in the query
-          startTime: BigInt(appeal.startTime || "0"),
-          endTime: BigInt(appeal.endTime || "0"),
+          uri: appeal.uri || "",
+          startTime: appeal.startTime,     // Remove BigInt conversion
+          endTime: appeal.endTime,         // Remove BigInt conversion
           forScore: BigInt(appeal.forScore || "0"),
           againstScore: BigInt(appeal.againstScore || "0"),
-          executed: false, // Default value since it's not in the query
+          executed: appeal.executed || false,
         }));
       } catch (error) {
         console.error("GraphQL query error:", error);

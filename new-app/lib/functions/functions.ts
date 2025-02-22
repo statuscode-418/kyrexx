@@ -32,7 +32,7 @@ export const createAppealFunc = async (params: createAppeal) => {
 }
 export const casteVoteFunc = async (params: casteVote) => {
   try {
-    const { proposalId, weight, hookData } = params
+    const { proposalId, weight, hookData } = params // for yes vote need to pass 1n and for no vote need to pass -1n
     const result = await writeContract(config, {
       abi: AppealVote,
       address: address as `0x${string}`,

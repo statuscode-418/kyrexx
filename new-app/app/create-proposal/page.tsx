@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createAppealFunc } from "@/lib/functions/functions"
 import { useAccount } from "wagmi"
+import { toast } from "sonner"
 
 export default function CreateProposalPage() {
   const router = useRouter()
@@ -105,7 +106,20 @@ export default function CreateProposalPage() {
                   type="datetime-local"
                   className="bg-gray-800 border-gray-700 text-white [color-scheme:dark] focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   value={formData.startTime}
-                  onChange={(e) => setFormData(prev => ({ ...prev, startTime: e.target.value }))}
+                  onChange={(e) => {
+                    const selectedDate = new Date(e.target.value);
+                    const now = new Date();
+
+                    if (selectedDate < now) {
+                      toast.error("Cannot select a past date");
+                      return;
+                    }
+
+                    setFormData(prev => ({
+                      ...prev,
+                      startTime: e.target.value
+                    }));
+                  }}
                   required
                   min={new Date().toISOString().slice(0, 16)}
                 />

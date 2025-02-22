@@ -8,14 +8,13 @@ import React from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Home() {
-
   const { isConnected } = useAccount();
   const { connect, connectors } = useConnect();
   const router = useRouter();
 
   useEffect(() => {
     if (isConnected) {
-      router.push("/feed");
+      router.push("/feed"); 
     }
   }, [isConnected, router]);
 
@@ -24,11 +23,11 @@ export default function Home() {
       <div className="m-auto max-w-md w-full px-4 py-8">
         <div className="flex flex-col items-center space-y-6">
           <div className="w-32 h-32 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-            <Image
-              src="/logo.png"
+            <Image 
+              src="/logo.png" 
               width={64}
               height={64}
-              alt="Kyrex Logo"
+              alt="Kyrex Logo" 
               className="w-full h-full object-cover"
             />
           </div>

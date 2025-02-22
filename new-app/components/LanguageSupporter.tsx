@@ -8,7 +8,7 @@ const languageNames: { [key: string]: string } = {
   bn: 'বাংলা'
 }
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher(): JSX.Element {
   const router = useRouter()
   const { t } = useTranslation('common')
   const { locales, locale: activeLocale } = router

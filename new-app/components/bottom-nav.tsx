@@ -9,7 +9,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 h-16 bg-gray-950 border-t border-gray-800">
+    <nav className="fixed md:hidden bottom-0 left-0 right-0 z-50 h-16 bg-gray-950 border-t border-gray-800">
       <div className="flex justify-around items-center h-full max-w-md mx-auto">
         <Link
           href="/dashboard"

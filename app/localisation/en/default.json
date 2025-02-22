@@ -1,0 +1,41 @@
+{
+    "vote": "Vote",
+    "confirmation": {
+      "are_you_sure": "Are you sure you want to vote for this candidate?",
+      "action_cannot_be_undone": "This action cannot be undone"
+    },
+    "buttons": {
+      "no": "No",
+      "yes": "Yes",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "get_started": "Get Started"
+    },
+    "election": {
+      "general": "General Election",
+      "date": "20th February 2025",
+      "starts_in": "Starts in 2 days",
+      "status": "Status",
+      "upcoming": "Upcoming"
+    },
+    "user": {
+      "profile": "User Profile",
+      "verified": "Verified",
+      "appeals_created": "Appeals Created",
+      "appeals_count": "10 Appeals",
+      "voted": "Voted",
+      "voted_count": "23"
+    },
+    "proposal": {
+      "create_new": "Create New Proposal",
+      "url": "Proposal URL",
+      "start_time": "Start Time",
+      "voting_period": "Voting Period",
+      "days": "days"
+    },
+    "blockchain": {
+      "zero_knowledge_proof": "Zero Knowledge Proof",
+      "description": "Blockchain Application where users can vote for different events"
+    },
+    "my_all": "My All"
+  }

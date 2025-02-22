@@ -1,0 +1,41 @@
+{
+    "vote": "वोट",
+    "confirmation": {
+      "are_you_sure": "क्या आप सुनिश्चित हैं कि आप इस उम्मीदवार को वोट देना चाहते हैं?",
+      "action_cannot_be_undone": "इस क्रिया को पूर्ववत नहीं किया जा सकता"
+    },
+    "buttons": {
+      "no": "नहीं",
+      "yes": "हाँ",
+      "cancel": "रद्द करें",
+      "confirm": "पुष्टि करें",
+      "get_started": "शुरू करें"
+    },
+    "election": {
+      "general": "सामान्य चुनाव",
+      "date": "20वां फरवरी 2025",
+      "starts_in": "2 दिनों में शुरू होगा",
+      "status": "स्थिति",
+      "upcoming": "आगामी"
+    },
+    "user": {
+      "profile": "उपयोगकर्ता प्रोफ़ाइल",
+      "verified": "सत्यापित",
+      "appeals_created": "अपीलें बनाई गई",
+      "appeals_count": "10 अपीलें",
+      "voted": "मतदान किया",
+      "voted_count": "23"
+    },
+    "proposal": {
+      "create_new": "नया प्रस्ताव बनाएं",
+      "url": "प्रस्ताव URL",
+      "start_time": "प्रारंभ समय",
+      "voting_period": "मतदान अवधि",
+      "days": "दिन"
+    },
+    "blockchain": {
+      "zero_knowledge_proof": "शून्य ज्ञान प्रमाण",
+      "description": "ब्लॉकचेन एप्लिकेशन जहां उपयोगकर्ता विभिन्न घटनाओं के लिए मतदान कर सकते हैं"
+    },
+    "my_all": "मेरा सब"
+  }

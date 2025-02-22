@@ -5,7 +5,7 @@ export const users = onchainTable("users", (t) => ({
   voteCount: t.integer().default(0),
 }));
 
-export const appeals = onchainTable("proposals", (t) => ({
+export const appeals = onchainTable("appeals", (t) => ({
   id: t.bigint().primaryKey(),
   appealerId: t.text().notNull(),
   uri: t.text(),

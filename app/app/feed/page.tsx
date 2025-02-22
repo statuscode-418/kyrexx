@@ -6,6 +6,7 @@ import { Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { useSwipeable } from 'react-swipeable'
+import { TopNav } from "../../components/top-nav"
 
 export default function Page() {
   const router = useRouter()
@@ -54,85 +55,86 @@ export default function Page() {
   }
 
   return (
-    <div {...handlers} className="min-h-screen bg-gray-950 pb-20">
-      <div className="p-4">
-        <h1 className="text-2xl font-bold text-white mb-6">All Events</h1>
+    <>
+      <TopNav />
+      <div {...handlers} className="min-h-screen bg-gray-950 md:pt-20 pb-20 md:pb-0">
+        <div className="p-4 max-w-7xl mx-auto">
+          <h1 className="text-2xl font-bold text-white mb-6">All Events</h1>
 
-        {/* Upcoming Events */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">Upcoming Events</h2>
-          {upcomingAppeals.length > 0 ? (
-            upcomingAppeals.map((appeal) => (
-              <AppealCard
-                key={String(appeal.id)}
-                name={appeal.uri}
-                startDate={formatDate(appeal.startTime)}
-                duration={getDuration(appeal.startTime, appeal.endTime)}
-                status="upcoming"
-              />
-            ))
-          ) : (
-            <p className="text-gray-400">No upcoming events created yet.</p>
-          )}
-        </section>
+          {/* Upcoming Events */}
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-white mb-4">Upcoming Events</h2>
+            {upcomingAppeals.length > 0 ? (
+              upcomingAppeals.map((appeal) => (
+                <AppealCard
+                  key={String(appeal.id)}
+                  name={appeal.uri}
+                  startDate={formatDate(appeal.startTime)}
+                  duration={getDuration(appeal.startTime, appeal.endTime)}
+                  status="upcoming"
+                />
+              ))
+            ) : (
+              <p className="text-gray-400">No upcoming events created yet.</p>
+            )}
+          </section>
 
-        {/* Ongoing Events */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">Ongoing Events</h2>
-          {ongoingAppeals.length > 0 ? (
-            ongoingAppeals.map((appeal) => (
-              <AppealCard
-                key={String(appeal.id)}
-                name={appeal.uri}
-                startDate={formatDate(appeal.startTime)}
-                duration={getDuration(appeal.startTime, appeal.endTime)}
-                status="ongoing"
-                showActions
-              />
-            ))
-          ) : (
-            <p className="text-gray-400">No ongoing events at the moment.</p>
-          )}
-        </section>
+          {/* Ongoing Events */}
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-white mb-4">Ongoing Events</h2>
+            {ongoingAppeals.length > 0 ? (
+              ongoingAppeals.map((appeal) => (
+                <AppealCard
+                  key={String(appeal.id)}
+                  name={appeal.uri}
+                  startDate={formatDate(appeal.startTime)}
+                  duration={getDuration(appeal.startTime, appeal.endTime)}
+                  status="ongoing"
+                  showActions
+                />
+              ))
+            ) : (
+              <p className="text-gray-400">No ongoing events at the moment.</p>
+            )}
+          </section>
 
-        {/* Past Events */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">Past Events</h2>
-          {pastAppeals.length > 0 ? (
-            pastAppeals.map((appeal) => (
-              <AppealCard
-                key={String(appeal.id)}
-                name={appeal.uri}
-                startDate={formatDate(appeal.startTime)}
-                duration={getDuration(appeal.startTime, appeal.endTime)}
-                status="end"
-                votes={{
-                  yes: Number(appeal.forScore),
-                  no: Number(appeal.againstScore)
-                }}
-              />
-            ))
-          ) : (
-            <p className="text-gray-400">No past events recorded.</p>
-          )}
-        </section>
+          {/* Past Events */}
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-white mb-4">Past Events</h2>
+            {pastAppeals.length > 0 ? (
+              pastAppeals.map((appeal) => (
+                <AppealCard
+                  key={String(appeal.id)}
+                  name={appeal.uri}
+                  startDate={formatDate(appeal.startTime)}
+                  duration={getDuration(appeal.startTime, appeal.endTime)}
+                  status="end"
+                  votes={{
+                    yes: Number(appeal.forScore),
+                    no: Number(appeal.againstScore)
+                  }}
+                />
+              ))
+            ) : (
+              <p className="text-gray-400">No past events recorded.</p>
+            )}
+          </section>
+        </div>
+        <button
+          className="fixed bottom-24 md:bottom-8 right-4 w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-800 rounded-full flex items-center justify-center shadow-lg transition-transform transform hover:scale-105"
+          onClick={() => router.push('/scanning-page')}
+        >
+          <Plus className="w-6 h-6 text-white" />
+        </button>
+
+        <button
+          className="fixed bottom-40 md:bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-pink-500 to-fuchsia-800 rounded-full flex items-center justify-center shadow-lg transition-transform transform hover:scale-105"
+          onClick={() => router.push('/create-proposal')}
+        >
+          <Plus className="w-6 h-6 text-white" />
+        </button>
       </div>
-      <button
-        className="fixed bottom-36 right-4 w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-800 rounded-full flex items-center justify-center shadow-lg transition-transform transform hover:scale-105"
-        onClick={() => router.push('/scanning-page')}
-      >
-        <Plus className="w-6 h-6 text-white" />
-      </button>
-
-      {/* Floating Add Button */}
-      <button
-        className="fixed bottom-20 right-4 w-14 h-14 bg-gradient-to-r from-pink-500 to-fuchsia-800 rounded-full flex items-center justify-center shadow-lg transition-transform transform hover:scale-105"
-        onClick={() => router.push('/create-proposal')}
-      >
-        <Plus className="w-6 h-6 text-white" />
-      </button>
-
       <BottomNav />
-    </div>
+    </>
   )
 }

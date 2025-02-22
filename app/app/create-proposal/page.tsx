@@ -72,13 +72,14 @@ export default function CreateProposalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-end py-6">
-          <ConnectButton />
-        </div>
-        
-        <div className="max-w-2xl mx-auto pb-20">
+    <div className="min-h-screen bg-gray-950 flex flex-col">
+      {/* Hidden ConnectButton wrapper */}
+      <div className="fixed -left-full">
+        <ConnectButton />
+      </div>
+
+      <div className="flex-1 flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-2xl">
           <Card className="bg-gray-900 border-gray-800">
             <CardHeader className="border-b border-gray-800 px-6">
               <CardTitle className="text-2xl font-bold text-white">

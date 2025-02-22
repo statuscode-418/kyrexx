@@ -68,7 +68,6 @@ export default function CreateProposalPage() {
       setIsSubmitting(false)
     }
   }
-
   return (
 
     <div className="min-h-screen bg-gray-950 pb-20">
@@ -133,6 +132,7 @@ export default function CreateProposalPage() {
               <div className="flex justify-end gap-4 pt-4">
                 <Button
                   type="button"
+                  variant="outline"
                   className="border-pink-500 text-pink-500 hover:bg-pink-500/10 hover:text-pink-500"
                   onClick={() => router.back()}
                 >

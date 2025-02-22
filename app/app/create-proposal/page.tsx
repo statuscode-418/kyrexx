@@ -34,10 +34,9 @@ export default function CreateProposalPage() {
 
       const startTimeDate = new Date(formData.startTime)
       const startTimeUnix = BigInt(Math.floor(startTimeDate.getTime() / 1000))
-
       const votingPeriodSeconds = BigInt(parseInt(formData.votingPeriod) * 24 * 60 * 60)
 
-      const tx = await createAppealFunc({
+      await createAppealFunc({
         startTime: startTimeUnix,
         votingPeriod: votingPeriodSeconds,
         uri: formData.uri,
@@ -46,8 +45,11 @@ export default function CreateProposalPage() {
         hookData: "0x"
       })
 
-      console.log(tx)
-      window.alert("Proposal created successfully! Your proposal has been created and will start at the specified time.")
+      // Add a small delay to ensure transaction is processed
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Navigate back
+      router.back()
 
     } catch (err) {
       console.error("Error creating proposal:", err)
@@ -70,87 +72,91 @@ export default function CreateProposalPage() {
   }
 
   return (
+    <div className="min-h-screen bg-gray-950">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-end py-6">
+          <ConnectButton />
+        </div>
+        
+        <div className="max-w-2xl mx-auto pb-20">
+          <Card className="bg-gray-900 border-gray-800">
+            <CardHeader className="border-b border-gray-800 px-6">
+              <CardTitle className="text-2xl font-bold text-white">
+                Create New Network State Proposal
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Proposal URI Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="uri" className="text-gray-300">
+                    Proposal URI
+                  </Label>
+                  <Input
+                    id="uri"
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    placeholder="ipfs://... or https://..."
+                    value={formData.uri}
+                    onChange={(e) => setFormData(prev => ({ ...prev, uri: e.target.value }))}
+                    required
+                  />
+                </div>
 
-    <div className="min-h-screen bg-gray-950 pb-20">
-      <div className="container mx-auto px-4 py-8">
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader className="border-b border-gray-800">
-            <CardTitle className="text-2xl font-bold text-white">
-              Create New Network State Proposal
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Proposal URI Field */}
-              <div className="space-y-3">
-                <Label htmlFor="uri" className="text-gray-300">
-                  Proposal URI
-                </Label>
-                <Input
-                  id="uri"
-                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  placeholder="ipfs://... or https://..."
-                  value={formData.uri}
-                  onChange={(e) => setFormData(prev => ({ ...prev, uri: e.target.value }))}
-                  required
-                />
-              </div>
+                {/* Start Time Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="startTime" className="text-gray-300">
+                    Start Time
+                  </Label>
+                  <Input
+                    id="startTime"
+                    type="datetime-local"
+                    className="bg-gray-800 border-gray-700 text-white [color-scheme:dark] focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    value={formData.startTime}
+                    onChange={(e) => setFormData(prev => ({ ...prev, startTime: e.target.value }))}
+                    required
+                    min={new Date().toISOString().slice(0, 16)}
+                  />
+                </div>
 
-              {/* Start Time Field */}
-              <div className="space-y-3">
-                <Label htmlFor="startTime" className="text-gray-300">
-                  Start Time
-                </Label>
-                <Input
-                  id="startTime"
-                  type="datetime-local"
-                  className="bg-gray-800 border-gray-700 text-white [color-scheme:dark] focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  value={formData.startTime}
-                  onChange={(e) => setFormData(prev => ({ ...prev, startTime: e.target.value }))}
-                  required
-                  min={new Date().toISOString().slice(0, 16)}
-                />
-              </div>
+                {/* Voting Period Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="votingPeriod" className="text-gray-300">
+                    Voting Period (days)
+                  </Label>
+                  <Input
+                    id="votingPeriod"
+                    type="number"
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    min="1"
+                    max="30"
+                    value={formData.votingPeriod}
+                    onChange={(e) => setFormData(prev => ({ ...prev, votingPeriod: e.target.value }))}
+                    required
+                  />
+                </div>
 
-              {/* Voting Period Field */}
-              <div className="space-y-3">
-                <Label htmlFor="votingPeriod" className="text-gray-300">
-                  Voting Period (days)
-                </Label>
-                <Input
-                  id="votingPeriod"
-                  type="number"
-                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  min="1"
-                  max="30"
-                  value={formData.votingPeriod}
-                  onChange={(e) => setFormData(prev => ({ ...prev, votingPeriod: e.target.value }))}
-                  required
-                />
-              </div>
-
-              {/* Buttons */}
-              <div className="flex justify-end gap-4 pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="border-pink-500 text-pink-500 hover:bg-pink-500/10 hover:text-pink-500"
-                  onClick={() => router.back()}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="bg-pink-500 hover:bg-pink-600 text-white focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-                  disabled={isSubmitting || !isConnected}
-                >
-                  {isSubmitting ? "Creating..." : "Create Proposal"}
-                </Button>
-                <ConnectButton />
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+                {/* Buttons */}
+                <div className="flex justify-end gap-4 pt-6">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="border-pink-500 text-pink-500 hover:bg-pink-500/10 hover:text-pink-500"
+                    onClick={() => router.back()}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="bg-pink-500 hover:bg-pink-600 text-white focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                    disabled={isSubmitting || !isConnected}
+                  >
+                    {isSubmitting ? "Creating..." : "Create Proposal"}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )

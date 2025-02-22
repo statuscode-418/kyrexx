@@ -1,0 +1,13 @@
+/home/dark/code/hack/kyrexx/zkp/target/debug/deps/libsp1_lib-8d181db7fb0d1a6a.rmeta: /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/lib.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/bls12381.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/bn254.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/ed25519.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/io.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/secp256k1.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/secp256r1.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/unconstrained.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/utils.rs
+
+/home/dark/code/hack/kyrexx/zkp/target/debug/deps/sp1_lib-8d181db7fb0d1a6a.d: /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/lib.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/bls12381.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/bn254.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/ed25519.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/io.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/secp256k1.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/secp256r1.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/unconstrained.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/utils.rs
+
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/lib.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/bls12381.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/bn254.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/ed25519.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/io.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/secp256k1.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/secp256r1.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/unconstrained.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sp1-lib-4.0.0/src/utils.rs:

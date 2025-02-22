@@ -1,0 +1,11 @@
+/home/dark/code/hack/kyrexx/zkp/target/debug/deps/libtwirp_rs-74f89f148bb18047.rmeta: /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/lib.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/client.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/context.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/error.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/headers.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/server.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/details.rs
+
+/home/dark/code/hack/kyrexx/zkp/target/debug/deps/twirp_rs-74f89f148bb18047.d: /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/lib.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/client.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/context.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/error.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/headers.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/server.rs /home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/details.rs
+
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/lib.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/client.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/context.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/error.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/headers.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/server.rs:
+/home/dark/.cargo/registry/src/index.crates.io-6f17d22bba15001f/twirp-rs-0.13.0-succinct/src/details.rs:

@@ -1,0 +1,4 @@
+Downloading https://sp1-circuits.s3.us-east-2.amazonaws.com/vk-map-v4.0.0-rc.3
+/home/dark/code/hack/kyrexx/zkp/target/debug/build/sp1-prover-82bd4aaf6edd0c2f/out/vk_map.bin: (verification: Ok):
+  1: https://sp1-circuits.s3.us-east-2.amazonaws.com/vk-map-v4.0.0-rc.3 with status 200
+

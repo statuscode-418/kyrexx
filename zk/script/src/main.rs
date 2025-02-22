@@ -1,4 +1,5 @@
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use actix_cors::Cors;
+use actix_web::{http, web, App, HttpResponse, HttpServer, Responder};
 use flate2::read::GzDecoder;
 use num_bigint::{BigInt, ToBigInt};
 use serde::{Deserialize, Serialize};
@@ -197,7 +198,19 @@ async fn main() -> std::io::Result<()> {
     let app_state = web::Data::new(AppState { pk, vk });
 
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allowed_origin("http://localhost:3000")
+            .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
+            .allowed_headers(vec![
+                http::header::AUTHORIZATION,
+                http::header::ACCEPT,
+                http::header::CONTENT_TYPE,
+            ])
+            .supports_credentials()
+            .max_age(3600);
+
         App::new()
+            .wrap(cors)
             .app_data(app_state.clone())
             .route("/process-qr", web::post().to(process_qr))
     })

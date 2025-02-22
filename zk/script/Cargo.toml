@@ -22,6 +22,7 @@ flate2 = "1.0"       # For decompression (used in QR processing)
 num-bigint = "0.4"   # For handling large integers (used in QR processing)
 actix-rt = "2.0"     # For Actix runtime
 sp1-prover = "4.1.1"
+actix-cors = "0.6"
 
 [build-dependencies]
 sp1-build = "4.0.0"  # For SP1 build-time dependencies

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useCallback } from 'react';
 import { BrowserMultiFormatReader } from '@zxing/library';
+import { validateQRCode } from '@/utils/qrValidation';
 
 const QRScanner = () => {
   const [error, setError] = useState<string | null>(null);
@@ -22,9 +23,15 @@ const QRScanner = () => {
       const codeReader = new BrowserMultiFormatReader();
       const imageUrl = URL.createObjectURL(file);
       const scanResult = await codeReader.decodeFromImageUrl(imageUrl);
-      
       URL.revokeObjectURL(imageUrl);
-      setResult(scanResult.getText());
+      
+      const qrText = scanResult.getText();
+      const validationResult = await validateQRCode(qrText);
+      setResult(validationResult.message);
+      
+      if (!validationResult.success) {
+        setError(validationResult.message);
+      }
     } catch (err: any) {
       setError('No QR code found in the image. Please try another image.');
       console.error('QR code reading error:', err);
@@ -98,31 +105,18 @@ const QRScanner = () => {
         </div>
       )}
 
-      {error && (
-        <div className="p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-100">
-          {error}
-        </div>
-      )}
-
-      {result && (
+      {result && !error && (
         <div className="mt-6 p-4 bg-green-500/20 border border-green-500 rounded-lg">
-          <h3 className="text-green-200 font-semibold mb-2">Scanned Result:</h3>
+          <h3 className="text-green-200 font-semibold mb-2">Validation Result:</h3>
           <div className="bg-gray-900/50 p-3 rounded-lg">
             <p className="text-green-100 break-all font-mono text-sm">{result}</p>
           </div>
-          {result.startsWith('http') && (
-            <a
-              href={result}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center text-green-300 hover:text-green-200 text-sm"
-            >
-              <span>Open Link</span>
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          )}
+        </div>
+      )}
+
+      {error && (
+        <div className="p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-100">
+          {error}
         </div>
       )}
     </div>

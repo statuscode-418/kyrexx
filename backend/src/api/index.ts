@@ -7,18 +7,30 @@ import { client, graphql } from "ponder";
 const app = new Hono();
 
 app.use('*', cors({
-  origin: ['localhost:3000', '127.0.0.1:3000', 'http://localhost:3000', 'http://127.0.0.1:3000'],
-  allowMethods: ['HEAD', 'GET', 'POST', 'OPTIONS'], // GraphQL typically only needs GET and POST
+  origin: [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://localhost:3000',
+    'https://127.0.0.1:3000'
+  ],
+  allowMethods: ['GET', 'POST', 'OPTIONS'],
   allowHeaders: [
     'Content-Type',
     'Authorization',
-    'Apollo-Require-Preflight', // Required for Apollo Client
+    'Apollo-Require-Preflight',
     'Accept',
-    'graphql-introspection' // For schema introspection queries
+    'apollo-require-preflight',
+    'Apollo-Federation-Include-Trace',
+    'graphql-introspection',
+    'X-Apollo-Operation-Name',
+    'X-Apollo-Operation-Id'
   ],
-  exposeHeaders: ['Apollo-Server-Version'], // Expose GraphQL-specific headers
+  exposeHeaders: [
+    'Apollo-Server-Version',
+    'Apollo-Federation-Include-Trace'
+  ],
   credentials: true,
-  maxAge: 3600 // Cache preflight requests for 1 hour
+  maxAge: 86400,
 }));
 
 app.use("/sql/*", client({ db, schema }));

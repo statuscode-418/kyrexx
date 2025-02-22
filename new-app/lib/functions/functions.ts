@@ -3,12 +3,12 @@ import { AppealVote } from "@/config/abi/AppealVote";
 import { address } from "@/config/contract/address";
 import { writeContract } from "@wagmi/core";
 import { createAppeal, casteVote, executeAppeal } from "@/config/types/types";
-import { transactionConfig } from "../../wagmi.config"
+import { config} from "@/lib/wagmi"
 
 export const createAppealFunc = async (params: createAppeal) => {
   try {
     const { startTime, votingPeriod, uri, executionData, hookData, target } = params
-    const result = await writeContract(transactionConfig, {
+    const result = await writeContract(config, {
       abi: AppealVote,
       address: address as `0x${string}`,
       functionName: "createAppeal",
@@ -33,7 +33,7 @@ export const createAppealFunc = async (params: createAppeal) => {
 export const casteVoteFunc = async (params: casteVote) => {
   try {
     const { proposalId, weight, hookData } = params
-    const result = await writeContract(transactionConfig, {
+    const result = await writeContract(config, {
       abi: AppealVote,
       address: address as `0x${string}`,
       functionName: "castVote",
@@ -53,7 +53,7 @@ export const casteVoteFunc = async (params: casteVote) => {
 export const executeAppealfunc = async (params: executeAppeal) => {
   const { appealId } = params
   try {
-    const result = await writeContract(transactionConfig, {
+    const result = await writeContract(config, {
       abi: AppealVote,
       address: address as `0x${string}`,
       functionName: "executeAppeal",

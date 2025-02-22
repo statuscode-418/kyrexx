@@ -107,8 +107,9 @@ export default function Page() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">Past Events</h2>
           {pastAppeals.length > 0 ? (
-            pastAppeals.map((appeal) => (
+            pastAppeals.map((appeal, key) => (
               <AppealCard
+              key={key}
                 appealId={String(appeal.id)}
                 name={appeal.uri}
                 startDate={formatDate(appeal.startTime)}

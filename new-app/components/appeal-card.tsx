@@ -12,8 +12,17 @@ import {
   AlertDialogTitle,
 } from "../components/ui/alert-dialog"
 import React from 'react'
+import { casteVoteFunc } from '@/lib/functions/functions'
+import { getAccount } from '@wagmi/core'
+import { useQueryClient } from "@tanstack/react-query";
+import { config } from '@/lib/wagmi'
+import { toast } from "sonner"
+
+
+
 
 interface AppealCardProps {
+  appealId: string; 
   name: string
   startDate: string
   duration: string
@@ -25,7 +34,9 @@ interface AppealCardProps {
   }
 }
 
-export function AppealCard({ name, startDate, duration, status, showActions = false, votes }: AppealCardProps) {
+
+
+export function AppealCard({ appealId, name, startDate, duration, status, showActions = false, votes }: AppealCardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "ongoing":
@@ -42,17 +53,72 @@ export function AppealCard({ name, startDate, duration, status, showActions = fa
   const [selected, setSelected] = useState<'yes' | 'no' | null>(null)
   const [tempSelection, setTempSelection] = useState<'yes' | 'no' | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [votingInProgress, setVotingInProgress] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+
 
   const handleSelect = (choice: 'yes' | 'no') => {
     setTempSelection(choice) // Temporarily store the choice
     setDialogOpen(true) // Open the dialog
   }
 
-  const handleConfirm = () => {
-    setSelected(tempSelection) // Commit the choice
-    setDialogOpen(false) // Close the dialog
-    console.log(`User confirmed: ${tempSelection}`) // Log or handle confirmed choice
+  // const handleConfirm : React.MouseEventHandler<HTMLButtonElement>= async (proposalId: string, weight: 1n | -1n) => {
+  //   const accountInfo = getAccount(config);
+  //   if (!accountInfo.address) {
+  //     toast.error("Please connect your wallet to vote");
+  //     return;
+  //   }
+
+  //   setVotingInProgress(proposalId);
+  //   try {
+  //     await casteVoteFunc({
+  //       proposalId: BigInt(proposalId), // ✅ Fixed type conversion
+  //       weight,
+  //       hookData: "0x",
+  //     });
+
+  //     toast.success("Vote cast successfully!");
+  //     alert('Vote cast successfully!')
+  //     queryClient.invalidateQueries({ queryKey: ["trendingProposals"] });
+  //   } catch (error) {
+  //     console.error("Voting failed:", error);
+  //     // toast.error("Failed to cast vote");
+  //   } finally {
+  //     setVotingInProgress(null);
+  //   }
+  // };
+
+  // Update handleConfirm to accept the event parameter and use tempSelection
+const handleConfirm: React.MouseEventHandler<HTMLButtonElement> = async (event) => {
+  const accountInfo = getAccount(config);
+  if (!accountInfo.address) {
+    toast.error("Please connect your wallet to vote");
+    return;
   }
+
+  // Convert selection to weight
+  const weight = tempSelection === 'yes' ? BigInt(1) : BigInt(-1);
+  
+  setVotingInProgress(appealId); 
+  try {
+    await casteVoteFunc({
+      proposalId: BigInt(appealId),
+      weight,
+      hookData: "0x",
+    });
+
+    toast.success("Vote cast successfully!");
+    setSelected(tempSelection); // Update the final selection
+    queryClient.invalidateQueries({ queryKey: ["trendingProposals"] });
+  } catch (error) {
+    console.error("Voting failed:", error);
+    toast.error("Failed to cast vote");
+  } finally {
+    setVotingInProgress(null);
+    setDialogOpen(false); // Close the dialog after voting
+  }
+};
+  
 
   const handleCancel = () => {
     setTempSelection(null) // Reset temporary selection

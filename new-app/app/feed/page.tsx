@@ -3,9 +3,11 @@ import { AppealCard } from "../../components/appeal-card";
 import { BottomNav } from "../../components/bottom-nav";
 import { useHighestVotes } from "../../hooks/useAppeal";
 import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react"
 import React from "react";
 import { useSwipeable } from "react-swipeable";
 import { TopNav } from "@/components/top-nav";
+import { casteVoteFunc } from "@/lib/functions/functions"
 
 export default function Page() {
   const router = useRouter();
@@ -40,17 +42,9 @@ export default function Page() {
 
   const now = BigInt(Math.floor(Date.now() / 1000));
 
-  const upcomingAppeals = (appeals ?? [])
-    .filter((a) => a.startTime > now)
-    .sort((a, b) => Number(a.startTime - b.startTime));
-
-  const ongoingAppeals = (appeals ?? [])
-    .filter((a) => a.startTime <= now && a.endTime > now)
-    .sort((a, b) => Number(a.startTime - b.startTime));
-
-  const pastAppeals = (appeals ?? [])
-    .filter((a) => a.endTime <= now)
-    .sort((a, b) => Number(b.endTime - a.endTime));
+  const upcomingAppeals = (appeals ?? []).filter(a => a.startTime > now)
+  const ongoingAppeals = (appeals ?? []).filter(a => a.startTime <= now && a.endTime > now)
+  const pastAppeals = (appeals ?? []).filter(a => a.endTime <= now)
 
   const formatDate = (timestamp: bigint) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString("en-US", {
@@ -64,65 +58,83 @@ export default function Page() {
     const days = (Number(end - start) * 1000) / (1000 * 60 * 60 * 24);
     return `${Math.ceil(days)} days`;
   };
+  
 
-  // Helper to render a section of events
-  const renderEventSection = (title: string, eventList: any[], status: string) => (
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold text-white mb-4 border-b border-gray-800 pb-2">
-        {title} Events
-      </h2>
-      {eventList.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {eventList.map((appeal) => (
-            <AppealCard
-              key={String(appeal.id)}
-              appealId={String(appeal.id)}
-              name={appeal.uri}
-              startDate={formatDate(appeal.startTime)}
-              duration={getDuration(appeal.startTime, appeal.endTime)}
-              status={status}
-              showActions={status === "ongoing"}
-              votes={
-                status === "past"
-                  ? {
-                    yes: Number(appeal.forScore),
-                    no: Number(appeal.againstScore),
-                  }
-                  : undefined
-              }
-            />
-          ))}
-        </div>
-      ) : (
-        <p className="text-gray-400 italic">No {status} events available.</p>
-      )}
-    </section>
-  );
+  
 
   return (
-    <div {...handlers} className="min-h-screen bg-gray-950">
+    
+    <div {...handlers} className="min-h-screen bg-gray-950 pb-20">
+      <div className="p-4">
+        <h1 className="text-2xl font-bold text-white mb-6">All Events</h1>
       <div className="hidden md:block">
         <TopNav />
       </div>
-
-      {/* Main container */}
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-white mb-8">All Events</h1>
-
         {/* Upcoming Events */}
-        {renderEventSection("Upcoming", upcomingAppeals, "upcoming")}
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold text-white mb-4">Upcoming Events</h2>
+          {upcomingAppeals.length > 0 ? (
+            upcomingAppeals.map((appeal) => (
+              <AppealCard
+                appealId={String(appeal.id)}
+                name={appeal.uri}
+                startDate={formatDate(appeal.startTime)}
+                duration={getDuration(appeal.startTime, appeal.endTime)}
+                status="upcoming"
+              />
+            ))
+          ) : (
+            <p className="text-gray-400">No upcoming events created yet.</p>
+          )}
+        </section>
 
         {/* Ongoing Events */}
-        {renderEventSection("Ongoing", ongoingAppeals, "ongoing")}
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold text-white mb-4">Ongoing Events</h2>
+          {ongoingAppeals.length > 0 ? (
+            ongoingAppeals.map((appeal) => (
+              <AppealCard
+                appealId={String(appeal.id)}
+                name={appeal.uri}
+                startDate={formatDate(appeal.startTime)}
+                duration={getDuration(appeal.startTime, appeal.endTime)}
+                status="ongoing"
+                showActions
+              />
+            ))
+          ) : (
+            <p className="text-gray-400">No ongoing events at the moment.</p>
+          )}
+        </section>
 
         {/* Past Events */}
-        {renderEventSection("Past", pastAppeals, "past")}
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold text-white mb-4">Past Events</h2>
+          {pastAppeals.length > 0 ? (
+            pastAppeals.map((appeal, key) => (
+              <AppealCard
+              key={key}
+                appealId={String(appeal.id)}
+                name={appeal.uri}
+                startDate={formatDate(appeal.startTime)}
+                duration={getDuration(appeal.startTime, appeal.endTime)}
+                status="end"
+                votes={{
+                  yes: Number(appeal.forScore),
+                  no: Number(appeal.againstScore)
+                }}
+              />
+            ))
+          ) : (
+            <p className="text-gray-400">No past events recorded.</p>
+          )}
+        </section>
       </div>
+      
 
-      {/* Bottom Navigation for mobile */}
-      <div className="md:hidden fixed bottom-0 w-full">
-        <BottomNav />
-      </div>
+            <div className="md:hidden">
+              <BottomNav />
+            </div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -62,12 +61,13 @@ export default function Dashboard() {
     });
 
   return (
-    <div {...handlers} className="min-h-screen bg-gray-950 text-white pb-20">
+    <div {...handlers} className="min-h-screen bg-gray-950 text-white">
+      {/* TopNav only visible on md screens and above */}
       <div className="hidden md:block">
         <TopNav />
       </div>
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 pb-24 md:pb-6">
         <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
         <div className="bg-gray-800 rounded-lg p-6 shadow mb-8">
           <h2 className="text-xl font-semibold mb-2">My Appeals</h2>
@@ -108,23 +108,26 @@ export default function Dashboard() {
           </p>
         )}
       </div>
-      <div className="fixed left-4 bottom-24 flex flex-col gap-4 md:left-8 md:bottom-8">
-  <button 
-    className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
-    onClick={() => router.push('/create-appeal')}
-  >
-    <span>+</span>
-  </button>
-  
-  <button 
-    className="w-12 h-12 bg-purple-500 hover:bg-purple-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
-    onClick={() => router.push('/scanning-page')}
-  >
-    <span>+</span>
-  </button>
-</div>
 
-      <div className="md:hidden fixed bottom-0 w-full">
+      {/* Fixed action buttons - moved to right side */}
+      <div className="fixed right-4 bottom-24 md:bottom-8 flex flex-col gap-4 md:right-8">
+        <button 
+          className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
+          onClick={() => router.push('/create-appeal')}
+        >
+          <span>+</span>
+        </button>
+        
+        <button 
+          className="w-12 h-12 bg-purple-500 hover:bg-purple-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
+          onClick={() => router.push('/scanning-page')}
+        >
+          <span>+</span>
+        </button>
+      </div>
+
+      {/* BottomNav only visible on screens smaller than md */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0">
         <BottomNav />
       </div>
     </div>

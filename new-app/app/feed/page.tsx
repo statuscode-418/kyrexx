@@ -1,5 +1,6 @@
-
 "use client";
+import { TopNav } from "@/components/top-nav";
+import { BottomNav } from "@/components/bottom-nav";
 import { useHighestVotes } from "../../hooks/useAppeal";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -213,7 +214,12 @@ export default function Page() {
 
   return (
     <div {...handlers} className="min-h-screen bg-gray-950">
-      <div className="container mx-auto px-4 py-6">
+      {/* TopNav only visible on md screens and above */}
+      <div className="hidden md:block">
+        <TopNav />
+      </div>
+
+      <div className="container mx-auto px-4 py-6 pb-24 md:pb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-white mb-8">All Events</h1>
 
         {/* Upcoming Events */}
@@ -224,6 +230,11 @@ export default function Page() {
 
         {/* Past Events */}
         {renderEventSection("Past", pastAppeals, "past")}
+      </div>
+
+      {/* BottomNav only visible on screens smaller than md */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0">
+        <BottomNav />
       </div>
     </div>
   );

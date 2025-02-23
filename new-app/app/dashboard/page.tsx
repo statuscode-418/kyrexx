@@ -108,6 +108,21 @@ export default function Dashboard() {
           </p>
         )}
       </div>
+      <div className="fixed left-4 bottom-24 flex flex-col gap-4 md:left-8 md:bottom-8">
+  <button 
+    className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
+    onClick={() => router.push('/create-appeal')}
+  >
+    <span>+</span>
+  </button>
+  
+  <button 
+    className="w-12 h-12 bg-purple-500 hover:bg-purple-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
+    onClick={() => router.push('/scanning-page')}
+  >
+    <span>+</span>
+  </button>
+</div>
 
       <div className="md:hidden fixed bottom-0 w-full">
         <BottomNav />

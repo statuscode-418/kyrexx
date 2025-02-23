@@ -12,7 +12,7 @@ interface QRValidationResponse {
 
 export async function validateQRCode(qrData: string): Promise<QRValidationResponse> {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_QR_API_URL || "localhost:8080", {
+    const response = await fetch(process.env.NEXT_PUBLIC_QR_API_URL || "http://localhost:8080/process-qr", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

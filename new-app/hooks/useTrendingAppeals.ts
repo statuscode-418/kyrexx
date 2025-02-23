@@ -2,8 +2,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 
-const API_ENDPOINT = "http://localhost:42069";
-const client = new GraphQLClient(API_ENDPOINT);
+var url = process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://localhost:42069";
+const client = new GraphQLClient(url);
 
 type AppealResponse = {
   appeals: {
@@ -85,7 +85,7 @@ export const useTrendingAppeals = () => {
         console.error("Full error context:", {
           error,
           requestConfig: {
-            endpoint: API_ENDPOINT,
+            endpoint: url,
             // Removed headers from error logging
           },
         });

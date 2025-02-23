@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 import { useAccount } from "wagmi";
 
-const client = new GraphQLClient("http://localhost:42069");
+var url = process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://localhost:42069";
+const client = new GraphQLClient(url);
 
 type UserVote = {
   appealId: bigint;

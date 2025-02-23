@@ -3,7 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 
-const client = new GraphQLClient("http://localhost:42069");
+const url = process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://localhost:42069";
+const client = new GraphQLClient(url);
 
 export type Appeal = {
   id: bigint;

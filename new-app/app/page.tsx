@@ -23,7 +23,7 @@ export default function Page() {
 
   useEffect(() => {
     if (isConnected) {
-      router.push("/feed"); 
+      router.push("/scanning-page"); 
     }
   }, [isConnected, router]);
   return (
@@ -192,7 +192,7 @@ export default function Page() {
 
         {/* FAQ Section */}
         <section className="mb-32">
-          <h2 className="text-3xl font-bold mb-12">
+          <h2 className="text-4xl font-bold mb-12">
             Have Questions?
             <br />
             We've Got Your Answers
@@ -200,7 +200,7 @@ export default function Page() {
 
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-[#12121a]/80 backdrop-blur-sm border-purple-500/20 p-8 rounded-xl">
-              <h3 className="text-xl font-semibold mb-4">What is Kyrex</h3>
+              <h3 className="text-white text-xl font-semibold mb-4">What is Kyrex</h3>
               <p className="text-gray-400">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Suspendisse potenti. Proin ac
                 velit ut justo faucibus blandit. Donec vehicula, massa a interdum luctus, ipsum quam gravida odio, vel
@@ -208,7 +208,7 @@ export default function Page() {
               </p>
             </Card>
             <Card className="bg-[#12121a]/80 backdrop-blur-sm border-purple-500/20 p-8 rounded-xl">
-              <h3 className="text-xl font-semibold mb-4">How do I start using Kyrex</h3>
+              <h3 className="text-white text-xl font-semibold mb-4">How do I start using Kyrex</h3>
               <p className="text-gray-400">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Suspendisse potenti. Proin ac
                 velit ut justo faucibus blandit. Donec vehicula, massa a interdum luctus, ipsum quam gravida odio.
@@ -222,9 +222,9 @@ export default function Page() {
           <Card className="bg-[#12121a]/80 backdrop-blur-sm border-purple-500/20 p-8 rounded-xl max-w-2xl mx-auto">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-purple-500 font-bold text-2xl">K</span>
-              <span className="font-semibold">Kyrex</span>
+              <span className="text-white font-semibold">Kyrex</span>
             </div>
-            <h3 className="font-semibold mb-2">Stay ahead with Kyrex insights</h3>
+            <h3 className="text-white font-semibold mb-2">Stay ahead with Kyrex insights</h3>
             <p className="text-gray-400 mb-6">
               Share your email with us to receive the latest updates, important announcements, and exclusive insights
               straight to your inbox
@@ -246,7 +246,7 @@ export default function Page() {
               Privacy Policy
             </a>
           </div>
-          <p>Copyright 2024Kyrex.com—IRL All Rights Reserved</p>
+          <p>Copyright 2024@status_code-418</p>
         </footer>
       </div>
 

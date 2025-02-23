@@ -1,5 +1,6 @@
 "use client"
 
+import { useHighestVotes } from "@/hooks/useAppeal"
 import { BottomNav } from "../../components/bottom-nav"
 import { TopNav } from "../../components/top-nav"
 import { useRouter } from "next/navigation"
@@ -11,6 +12,7 @@ export default function ProfilePage() {
     const router = useRouter()
     const { address, isConnected } = useAccount()
     const { disconnect } = useDisconnect()
+    const { data: appeals, isLoading, error } = useHighestVotes();
 
     // Redirect to login if wallet is disconnected
     useEffect(() => {
@@ -30,6 +32,19 @@ export default function ProfilePage() {
         swipeDuration: 500,
         touchEventOptions: { passive: false }
     })
+
+    if (!isConnected || !address) {
+        return (
+          <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center p-4">
+            <p>Please connect your MetaMask wallet to view your appeals dashboard.</p>
+          </div>
+        );
+      }
+
+
+    const myAppeals = (appeals ?? []).filter(
+        (appeal) => appeal.appealerId.toLowerCase() === address.toLowerCase()
+      );
 
     return (
         <>
@@ -53,7 +68,7 @@ export default function ProfilePage() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="bg-gray-800/50 p-4 rounded-lg text-center">
                                     <p className="text-sm text-gray-400">Appeals Created</p>
-                                    <p className="text-2xl font-semibold">10</p>
+                                    <p className="text-2xl font-semibold">{myAppeals.length}</p>
                                 </div>
                                 <div className="bg-gray-800/50 p-4 rounded-lg text-center">
                                     <p className="text-sm text-gray-400">Appeals Voted</p>

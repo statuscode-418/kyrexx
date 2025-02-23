@@ -9,13 +9,10 @@ interface QRValidationResponse {
   message: string;
 }
 
-if (!process.env.NEXT_PUBLIC_QR_API_URL) {
-  throw new Error('QR API URL not configured in environment variables');
-}
 
 export async function validateQRCode(qrData: string): Promise<QRValidationResponse> {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_QR_API_URL, {
+    const response = await fetch(process.env.NEXT_PUBLIC_QR_API_URL || "localhost:8080", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

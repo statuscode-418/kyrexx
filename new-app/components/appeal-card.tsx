@@ -36,7 +36,7 @@ interface AppealCardProps {
 
 
 
-export function AppealCard({ appealId, name, startDate, duration, status, showActions = false, votes }: AppealCardProps) {
+export function AppealCard({ appealId, name, startDate, duration, status, showActions = false, votes: initialVotes }: AppealCardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "ongoing":
@@ -55,38 +55,13 @@ export function AppealCard({ appealId, name, startDate, duration, status, showAc
   const [dialogOpen, setDialogOpen] = useState(false)
   const [votingInProgress, setVotingInProgress] = useState<string | null>(null);
   const queryClient = useQueryClient();
+  const [localVotes, setLocalVotes] = useState(initialVotes || { yes: 0, no: 0 });
 
 
   const handleSelect = (choice: 'yes' | 'no') => {
     setTempSelection(choice) // Temporarily store the choice
     setDialogOpen(true) // Open the dialog
   }
-
-  // const handleConfirm : React.MouseEventHandler<HTMLButtonElement>= async (proposalId: string, weight: 1n | -1n) => {
-  //   const accountInfo = getAccount(config);
-  //   if (!accountInfo.address) {
-  //     toast.error("Please connect your wallet to vote");
-  //     return;
-  //   }
-
-  //   setVotingInProgress(proposalId);
-  //   try {
-  //     await casteVoteFunc({
-  //       proposalId: BigInt(proposalId), // ✅ Fixed type conversion
-  //       weight,
-  //       hookData: "0x",
-  //     });
-
-  //     toast.success("Vote cast successfully!");
-  //     alert('Vote cast successfully!')
-  //     queryClient.invalidateQueries({ queryKey: ["trendingProposals"] });
-  //   } catch (error) {
-  //     console.error("Voting failed:", error);
-  //     // toast.error("Failed to cast vote");
-  //   } finally {
-  //     setVotingInProgress(null);
-  //   }
-  // };
 
   // Update handleConfirm to accept the event parameter and use tempSelection
 const handleConfirm: React.MouseEventHandler<HTMLButtonElement> = async (event) => {
@@ -106,6 +81,12 @@ const handleConfirm: React.MouseEventHandler<HTMLButtonElement> = async (event) 
       weight,
       hookData: "0x",
     });
+
+    // Update local votes
+    setLocalVotes(prev => ({
+      yes: prev.yes + (tempSelection === 'yes' ? 1 : 0),
+      no: prev.no + (tempSelection === 'no' ? 1 : 0)
+    }));
 
     toast.success("Vote cast successfully!");
     setSelected(tempSelection); // Update the final selection
@@ -166,10 +147,10 @@ const handleConfirm: React.MouseEventHandler<HTMLButtonElement> = async (event) 
             No
           </button>
         </div>
-      ) : votes ? (
+      ) : localVotes ? (
         <div className="flex gap-4">
-          <div className="flex-1 bg-gradient-to-r from-pink-500 to-fuchsia-800 text-white rounded-md py-2 text-center">{votes.yes}</div>
-          <div className="flex-1 bg-gradient-to-r from-pink-500 to-fuchsia-800 text-white rounded-md py-2 text-center">{votes.no}</div>
+          <div className="flex-1 bg-gradient-to-r from-pink-500 to-fuchsia-800 text-white rounded-md py-2 text-center">{localVotes.yes}</div>
+          <div className="flex-1 bg-gradient-to-r from-pink-500 to-fuchsia-800 text-white rounded-md py-2 text-center">{localVotes.no}</div>
         </div>
       ) : null}
 

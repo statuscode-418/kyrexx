@@ -24,7 +24,11 @@ export async function validateQRCode(qrData: string): Promise<QRValidationRespon
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // throw new Error(`HTTP error! status: ${response.status}`);
+      return {
+        success: false,
+        message: 'HTTP error'
+      };
     }
 
     const data = await response.json() as QRApiResponse;

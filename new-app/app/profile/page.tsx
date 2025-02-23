@@ -7,12 +7,15 @@ import { useRouter } from "next/navigation"
 import React, { useEffect } from "react"
 import { useSwipeable } from "react-swipeable"
 import { useAccount, useDisconnect } from "wagmi"
+import { useUserVotes } from "@/hooks/useVotes"
 
 export default function ProfilePage() {
     const router = useRouter()
     const { address, isConnected } = useAccount()
     const { disconnect } = useDisconnect()
     const { data: appeals, isLoading, error } = useHighestVotes();
+    const { data: userVotes } = useUserVotes();
+    console.log(userVotes)
 
     // Redirect to login if wallet is disconnected
     useEffect(() => {
@@ -46,6 +49,8 @@ export default function ProfilePage() {
         (appeal) => appeal.appealerId.toLowerCase() === address.toLowerCase()
       );
 
+    const totalVotes = userVotes?.length ?? 0;
+
     return (
         <>
             <TopNav />
@@ -72,7 +77,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="bg-gray-800/50 p-4 rounded-lg text-center">
                                     <p className="text-sm text-gray-400">Appeals Voted</p>
-                                    <p className="text-2xl font-semibold">23</p>
+                                    <p className="text-2xl font-semibold">{totalVotes}</p>
                                 </div>
                             </div>
                         </div>

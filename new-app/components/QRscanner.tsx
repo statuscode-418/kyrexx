@@ -1,13 +1,16 @@
 'use client';
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { BrowserMultiFormatReader } from '@zxing/library';
 import { validateQRCode } from '@/utils/qrValidation';
 
 const QRScanner = () => {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const [validationTime, setValidationTime] = useState<number | null>(null);
 
   const processImage = async (file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -20,6 +23,7 @@ const QRScanner = () => {
     setResult(null);
 
     try {
+      const startTime = performance.now();
       const codeReader = new BrowserMultiFormatReader();
       const imageUrl = URL.createObjectURL(file);
       const scanResult = await codeReader.decodeFromImageUrl(imageUrl);
@@ -27,9 +31,17 @@ const QRScanner = () => {
       
       const qrText = scanResult.getText();
       const validationResult = await validateQRCode(qrText);
+      const endTime = performance.now();
+      setValidationTime(endTime - startTime);
+      
       setResult(validationResult.message);
       
-      if (!validationResult.success) {
+      if (validationResult.success) {
+        // Show success message for 3 seconds before redirecting
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 3000);
+      } else {
         setError(validationResult.message);
       }
     } catch (err: any) {
@@ -111,6 +123,12 @@ const QRScanner = () => {
           <div className="bg-gray-900/50 p-3 rounded-lg">
             <p className="text-green-100 break-all font-mono text-sm">{result}</p>
           </div>
+          {validationTime && (
+            <p className="text-green-200 text-sm mt-2">
+              Validation completed in {validationTime.toFixed(2)}ms
+            </p>
+          )}
+          <p className="text-green-200 mt-2">Redirecting to dashboard...</p>
         </div>
       )}
 

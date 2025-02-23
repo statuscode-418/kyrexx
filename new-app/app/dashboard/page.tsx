@@ -110,19 +110,13 @@ export default function Dashboard() {
       </div>
 
       {/* Fixed action buttons - moved to right side */}
-      <div className="fixed right-4 bottom-24 md:bottom-8 flex flex-col gap-4 md:right-8">
+      <div className="fixed right-8 bottom-24 md:bottom-8">
         <button 
-          className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
+          className="w-14 h-14 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110 hover:shadow-xl"
           onClick={() => router.push('/create-appeal')}
+          title="Create New Appeal"
         >
-          <span>+</span>
-        </button>
-        
-        <button 
-          className="w-12 h-12 bg-purple-500 hover:bg-purple-600 rounded-full shadow-lg flex items-center justify-center text-white text-2xl transition-all duration-200 transform hover:scale-110"
-          onClick={() => router.push('/scanning-page')}
-        >
-          <span>+</span>
+          <span className="text-3xl font-light">+</span>
         </button>
       </div>
 

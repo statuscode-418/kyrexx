@@ -38,7 +38,7 @@ export async function validateQRCode(qrData: string): Promise<QRValidationRespon
     console.error('QR validation error:', error);
     return {
       success: false,
-      message: 'Failed to validate QR code'
+      message: 'Not a valid aadhar qr'
     };
   }
 }
